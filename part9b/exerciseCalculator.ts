@@ -36,7 +36,35 @@ export const calculateExercise = (dailyHours: number[], target: number): Result 
     }
 }
 
+const parseArguments = (args: string[],):{
+    dailyHours: number[],
+    target: number
+} => {
+    
+    if (args.length < 4) throw new Error('Not enough arguments')
+    const numbers = args.slice(2).map(n => {
+        if (isNaN(Number(n))) {
+            throw new Error(`Provided value "${n}" is not a number`)
+        }
+        return Number(n)
+    })
+    const dailyHours = args.slice(2).map(Number)
+    const target = Number(args[2])
+
+    return {
+        dailyHours,
+        target
+    }
+}
+
 if (require.main === module) {
-    const result = calculateExercise([3, 0, 2, 4.5, 0, 3, 1], 2)
-    console.log(result)
+    try {
+        const { dailyHours, target } = parseArguments(process.argv)
+        const result  = calculateExercise(dailyHours, target)
+        console.log(result)
+    } catch(e : unknown){
+        if (e instanceof Error) {
+            console.log('Error: ', e.message)
+        }
+    }
 }
