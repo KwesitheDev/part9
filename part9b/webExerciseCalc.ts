@@ -19,12 +19,12 @@ app.post('./exercises', (req, res) => {
 
     const result = calculateExercise(dailyHours.map(d=>Number(d)), Number(target));
 
-    return res.json(result)
+    return res.json(result);
 
     
 });
 
-const PORT = 3003
+const PORT = 3003;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-})
+    console.log(`Server running on port ${PORT}`);
+});
