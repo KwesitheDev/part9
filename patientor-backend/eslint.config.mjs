@@ -29,5 +29,9 @@ export default tseslint.config({
       'error',
       { 'argsIgnorePattern': '^_' }
     ],
-  },
+    },
+  ignores: [
+    '**/build/**',
+    
+  ]
 });
