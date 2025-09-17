@@ -9,5 +9,13 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+  ],
+  "include": [
+    "src/**/*"
+  ]
+
 }
