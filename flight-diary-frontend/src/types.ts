@@ -4,4 +4,7 @@ export interface DiaryEntry {
     weather: string;
     visibility: string;
     comment?: string;
-}
+};
+
+export type Weather = 'sunny' | 'rainy' | 'cloudy' | 'stormy' | 'windy';
+export type Visibility = 'great' | 'good' | 'ok' | 'poor';
