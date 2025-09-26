@@ -38,12 +38,45 @@ const addDiary = async (event: React.SyntheticEvent) => {
     <h1>Flight Diaries</h1>
     <h2>Add New Entry</h2>
       <form onSubmit={addDiary}>
-        <div>Date <input type="text" value={date} onChange={e => setDate(e.target.value)} /></div>
-        <div>Visibility <input type="text" value={visibility} onChange={e => setVisibility(e.target.value)} /></div>
-        <div>Weather <input type="text" value={weather} onChange={e => setWeather(e.target.value)} /></div>
-        <div>Comment <input type="text" value={comment} onChange={e => setComment(e.target.value)} /></div>
-        <button type="submit">Add</button>
-      </form>
+  <div>
+    Date <input type="date" value={date} onChange={e => setDate(e.target.value)} />
+  </div>
+  <div>
+    Visibility:
+    {['great', 'good', 'ok', 'poor'].map(v => (
+      <label key={v}>
+        <input
+          type="radio"
+          name="visibility"
+          value={v}
+          checked={visibility === v}
+          onChange={e => setVisibility(e.target.value)}
+        />
+        {v}
+      </label>
+    ))}
+  </div>
+  <div>
+    Weather:
+    {['sunny', 'rainy', 'cloudy', 'stormy', 'windy'].map(w => (
+      <label key={w}>
+        <input
+          type="radio"
+          name="weather"
+          value={w}
+          checked={weather === w}
+          onChange={e => setWeather(e.target.value)}
+        />
+        {w}
+      </label>
+    ))}
+  </div>
+  <div>
+    Comment <input type="text" value={comment} onChange={e => setComment(e.target.value)} />
+  </div>
+  <button type="submit">Add</button>
+</form>
+
 
     <h2>Diary Entries</h2>
     {diaries.map(d => (
