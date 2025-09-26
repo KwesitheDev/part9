@@ -9,3 +9,7 @@ export const getAll = async (): Promise<DiaryEntry[]> => {
 };
 
 
+export const create = async (entry: Omit <DiaryEntry, 'id'>): Promise<DiaryEntry> => {
+    const response = await axios.post<DiaryEntry>(baseUrl, entry);
+    return response.data;
+}
