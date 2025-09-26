@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { DiaryEntry } from "./types";
 import * as diaryService from './diaryService';
+import axios from 'axios';
 
 
 function App() {
@@ -14,15 +15,23 @@ function App() {
     diaryService.getAll().then(setDiaries);
   }, [])
   
-  const addDiary = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+const addDiary = async (event: React.SyntheticEvent) => {
+  event.preventDefault();
+  try {
     const newDiary = await diaryService.create({ date, visibility, weather, comment });
     setDiaries(diaries.concat(newDiary));
     setDate('');
     setVisibility('');
     setWeather('');
-    setComment('');    
+    setComment('');
+  } catch (e) {
+    if (axios.isAxiosError(e) && e.response) {
+      alert(`Error: ${e.response.data}`);
+    } else {
+      alert('Unknown error');
+    }
   }
+};
 
 
   return (<div>
