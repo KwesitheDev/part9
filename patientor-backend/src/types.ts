@@ -20,7 +20,7 @@ export interface Entry{ }
 
 
 export type PublicInfo = Omit<Patient, 'ssn' | 'entries'>;
-export type NewPatient = Omit<Patient, 'id'>;
+export type NewPatient = Omit<Patient, 'id' | 'entries'>;
 
 export enum Gender {
     Male = 'male',
