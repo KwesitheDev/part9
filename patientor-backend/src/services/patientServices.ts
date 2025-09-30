@@ -8,13 +8,14 @@ const getPatients = (): PublicInfo[] => {
         name,
         dateOfBirth,
         gender,
-        occupation
+        occupation,
     }));
 };
 
 const addPatient = (patient: NewPatient): Patient => {
     const newPatient = {
         id: uuid(),
+        entries: [],
         ...patient
     };
 
