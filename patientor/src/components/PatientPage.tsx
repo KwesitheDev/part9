@@ -36,10 +36,24 @@ const PatientPage = () => {
       <p>Occupation: {patient.occupation}</p>
       <p>Date of birth: {patient.dateOfBirth}</p>
 
-      <Typography variant="h6">Entries</Typography>
-      {patient.entries.length === 0
-        ? <p>No entries yet.</p>
-        : patient.entries.map((e, i) => <div key={i}>{JSON.stringify(e)}</div>)}
+      <Typography variant="h5">entries</Typography>
+
+<ul>
+  {patient.entries.map(entry=> (
+    <li key={entry.id}>
+      <p><strong>{entry.date}</strong> — {entry.description}</p>
+
+      {entry.diagnosisCodes && (
+        <ul>
+          {entry.diagnosisCodes.map(code => (
+            <li key={code}>{code}</li>
+          ))}
+        </ul>
+      )}
+    </li>
+  ))}
+</ul>
+
     </div>
   );
 };
