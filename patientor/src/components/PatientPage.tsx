@@ -6,10 +6,14 @@ import { apiBaseUrl } from "../constants";
 import { Typography } from "@mui/material";
 import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
+import { useStateValue } from "../state"; 
 
 const PatientPage = () => {
   const { id } = useParams<{ id: string }>();
   const [patient, setPatient] = useState<Patient | null>(null);
+
+  
+  const [{ diagnoses }] = useStateValue();
 
   useEffect(() => {
     const fetchPatient = async () => {
@@ -32,28 +36,37 @@ const PatientPage = () => {
         {patient.gender === "male" && <MaleIcon />}
         {patient.gender === "female" && <FemaleIcon />}
       </Typography>
-      <p>SSN: {patient.ssn}</p>
+
+      {patient.ssn && <p>SSN: {patient.ssn}</p>}
       <p>Occupation: {patient.occupation}</p>
-      <p>Date of birth: {patient.dateOfBirth}</p>
+      {patient.dateOfBirth && <p>Date of birth: {patient.dateOfBirth}</p>}
 
-      <Typography variant="h5">entries</Typography>
+      <Typography variant="h5">Entries</Typography>
 
-<ul>
-  {patient.entries.map(entry=> (
-    <li key={entry.id}>
-      <p><strong>{entry.date}</strong> — {entry.description}</p>
-
-      {entry.diagnosisCodes && (
+      {patient.entries.length === 0 ? (
+        <p>No entries found.</p>
+      ) : (
         <ul>
-          {entry.diagnosisCodes.map(code => (
-            <li key={code}>{code}</li>
+          {patient.entries.map((entry) => (
+            <li key={entry.id}>
+              <p>
+                <strong>{entry.date}</strong> — {entry.description}
+              </p>
+
+              {/* 👇 Show diagnosis codes with names from global state */}
+              {entry.diagnosisCodes && entry.diagnosisCodes.length > 0 && (
+                <ul>
+                  {entry.diagnosisCodes.map((code) => (
+                    <li key={code}>
+                      {code} — {diagnoses[code]?.name ?? "Unknown diagnosis"}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
           ))}
         </ul>
       )}
-    </li>
-  ))}
-</ul>
-
     </div>
   );
 };
